@@ -155,3 +155,18 @@ div:nth-child(8) {
 div:nth-child(9) {
   --posicion: 8;
 }
+
+
+div:nth-child(10) {
+  --posicion: 9;
+}
+
+
+div:nth-child(11) {
+  --posicion: 10;
+}
+
+
+div:nth-child(12) {
+  --posicion: 11;
+}
