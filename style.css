@@ -2,14 +2,14 @@
   --top: 20px;
   --left: 20px;
   --tamano: 500px;
-  --grados: 30deg;
+  --grados: 32.727272727deg;
   --rotacion: 0deg;
-  --color-impar: turquoise;
-  --color-par: yellow;
+  --color-impar: #ff2f28;
+  --color-par: #ff8d36;
   --color-borde: #000;
   --color-flecha: black;
   --color-centro: red;
-  --color-divisor: #449;
+  --color-divisor: translate;
 }
 
 #triangulo {
@@ -76,10 +76,16 @@
   width: calc(var(--tamano) / 6);
   height: calc(var(--tamano) / 6);
   background-color: blueviolet;
+  background-image: url(https://www.unicomergiraygana.com/wp-content/uploads/2022/10/premio-rs-navidad-diciembre-7.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 80% auto;
   border-radius: 50%;
   transform-origin: 0 0;
   transform: rotate(calc(var(--grados) * var(--posicion)))
-    translate(0, calc(-1 * var(--tamano) / 2.7)) translate(-50%, -50%);
+    translate(0, calc(-1 * var(--tamano) / 2.7)) translate(-50%, -40%);
+
+
 }
 
 #divisores div {
