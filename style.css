@@ -14,8 +14,8 @@
 
 #triangulo {
   position: absolute;
-  top: calc(var(--top) + var(--tamano) / 30);
-  left: calc(var(--left) + var(--tamano) / 30);
+  top: calc(var(--top) + var(--tamano) / 18);
+  left: calc(var(--left) + var(--tamano) / 18);
   width: 0;
   height: 0;
   border-left: calc(var(--tamano) / 15) solid transparent;
@@ -58,8 +58,8 @@
 
 #ruleta:after {
   position: absolute;
-  width: calc(var(--tamano) / 7.5);
-  height: calc(var(--tamano) / 7.5);
+  width: calc(var(--tamano) / 3);
+  height: calc(var(--tamano) / 3);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
