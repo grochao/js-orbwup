@@ -1,8 +1,8 @@
 :root {
   --top: 20px;
   --left: 20px;
-  --tamano: 500px;
-  --grados: 32.727272727deg;
+  --tamano: 700px;
+  --grados: 40deg;
   --rotacion: 0deg;
   --color-impar: #ff2f28;
   --color-par: #ff8d36;
@@ -45,7 +45,7 @@
   height: var(--tamano);
   background-color: red;
   border-radius: 50%;
-  border: calc(var(--tamano) / 30) solid var(--color-borde);
+  border: calc(var(--tamano) / 18) solid var(--color-borde);
   will-change: transform;
   transition: transform 10s cubic-bezier(0, 0, 0.3, 1);
   transform: rotate(var(--rotacion));
@@ -84,8 +84,6 @@
   transform-origin: 0 0;
   transform: rotate(calc(var(--grados) * var(--posicion)))
     translate(0, calc(-1 * var(--tamano) / 2.7)) translate(-50%, -40%);
-
-
 }
 
 #divisores div {
@@ -125,13 +123,15 @@
   width: inherit;
   height: inherit;
   border-radius: 0 100% 0 0;
-  background-image: linear-gradient(45deg, var(--color-impar), black);
+  background-color: var(--color-impar);
+  /*background-image: linear-gradient(45deg, var(--color-impar), black);*/
   content: '';
   transform-origin: 0% 100%;
   transform: skew(90deg - var(--grados));
 }
 #ruleta div:nth-child(even)::before {
-  background-image: linear-gradient(45deg, var(--color-par), black);
+  background-color: var(--color-par);
+  /*background-image: linear-gradient(45deg, var(--color-par), black);*/
 }
 
 div:nth-child(1) {
@@ -162,16 +162,13 @@ div:nth-child(9) {
   --posicion: 8;
 }
 
-
 div:nth-child(10) {
   --posicion: 9;
 }
 
-
 div:nth-child(11) {
   --posicion: 10;
 }
-
 
 div:nth-child(12) {
   --posicion: 11;
