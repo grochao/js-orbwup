@@ -1,6 +1,6 @@
 :root {
-  --top: 20px;
-  --left: 20px;
+  --top: 50px;
+  --left: 50px;
   --tamano: 700px;
   --grados: 40deg;
   --rotacion: 0deg;
@@ -45,11 +45,25 @@
   height: var(--tamano);
   background-color: red;
   border-radius: 50%;
-  border: calc(var(--tamano) / 18) solid var(--color-borde);
+
   will-change: transform;
   transition: transform 10s cubic-bezier(0, 0, 0.3, 1);
   transform: rotate(var(--rotacion));
-  box-shadow: 0px 0px calc(var(--tamano) / 20) black;
+  /*box-shadow: inset 0px 0px calc(var(--tamano) / 20) black;*/
+}
+#ruleta::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--tamano);
+  height: var(--tamano);
+  background-color: transparent;
+  border-radius: 50%;
+  outline: calc(var(--tamano) / 18) solid var(--color-borde);
+  will-change: transform;
+  z-index: 9999;
+  box-shadow: inset 0px 0px calc(var(--tamano) / 20) black;
 }
 
 #ruleta:hover {
@@ -100,10 +114,12 @@
 
 #sectores {
   position: absolute;
-  width: var(--tamano);
-  height: var(--tamano);
+  width: calc(var(--tamano) + 2px);
+  height: calc(var(--tamano) + 2px);
   border-radius: 50%;
   overflow: hidden;
+  left: -1px;
+  top: -1px;
 }
 
 #sectores div {
@@ -132,6 +148,20 @@
 #ruleta div:nth-child(even)::before {
   background-color: var(--color-par);
   /*background-image: linear-gradient(45deg, var(--color-par), black);*/
+}
+
+#ruleta div:nth-child(even)::before {
+  background-color: var(--color-par);
+  /*background-image: linear-gradient(45deg, var(--color-par), black);*/
+}
+#ruleta div:nth-last-child(1)::before {
+  background-color: #fff;
+}
+#ruleta div:nth-last-child(3)::before {
+  background-color: #fff;
+}
+#ruleta div:nth-last-child(6)::before {
+  background-color: #fff;
 }
 
 div:nth-child(1) {
