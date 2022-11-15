@@ -1,0 +1,334 @@
+:root {
+    --top: 50px;
+    --left: 50px;
+    --tamano: 700px;
+    --grados: 40deg;
+    --grados-bombillos: 16.363636364deg;
+    --rotacion: 0deg;
+    --color-impar: #ff2f28;
+    --color-par: #ff8d36;
+    --color-borde: #000;
+    --color-flecha: black;
+    --color-centro: red;
+    --color-divisor: translate;
+}
+
+@mixin css3-prefix($property, $value) {
+    -webkit-#{$property}: #{$value};
+    -khtml-#{$property}: #{$value};
+    -moz-#{$property}: #{$value};
+    -ms-#{$property}: #{$value};
+    -o-#{$property}: #{$value};
+    #{$property}: #{$value};
+}
+
+body {
+    background-color: rgb(31, 31, 31);
+    background-image: url(https://www.unicomergiraygana.com/wp-content/uploads/2022/11/calendario.png);
+    background-position: center;
+    background-repeat: repeat;
+    background-size: auto 50px;
+    background-attachment: fixed;
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+}
+
+.container-ruleta {
+    position: fixed;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+    .center {
+        position: absolute;
+        display: block;
+        width: 1px;
+        height: 1px;
+        left: 50%;
+        top: 50%;
+    }
+    #border-marquesina {
+        position: relative;
+        top: calc(-1 * (var(--tamano) / 2));
+        left: calc(-1 * (var(--tamano) / 2));
+        width: var(--tamano);
+        height: var(--tamano);
+        background: rgb(237, 167, 53);
+        background: -moz-linear-gradient(323deg, rgba(237, 167, 53, 1) 13%, rgba(208, 147, 2, 1) 24%, rgba(203, 127, 4, 1) 28%, rgba(255, 206, 50, 1) 44%, rgba(203, 143, 2, 1) 53%, rgba(209, 151, 2, 1) 65%, rgba(201, 125, 2, 1) 69%, rgba(236, 158, 39, 1) 74%);
+        background: -webkit-linear-gradient(323deg, rgba(237, 167, 53, 1) 13%, rgba(208, 147, 2, 1) 24%, rgba(203, 127, 4, 1) 28%, rgba(255, 206, 50, 1) 44%, rgba(203, 143, 2, 1) 53%, rgba(209, 151, 2, 1) 65%, rgba(201, 125, 2, 1) 69%, rgba(236, 158, 39, 1) 74%);
+        background: linear-gradient(323deg, rgba(237, 167, 53, 1) 13%, rgba(208, 147, 2, 1) 24%, rgba(203, 127, 4, 1) 28%, rgba(255, 206, 50, 1) 44%, rgba(203, 143, 2, 1) 53%, rgba(209, 151, 2, 1) 65%, rgba(201, 125, 2, 1) 69%, rgba(236, 158, 39, 1) 74%);
+        // filter: progid: DXImageTransform.Microsoft.gradient(startColorstr="#eda735", endColorstr="#ec9e27", GradientType=1);
+        border-radius: 50%;
+        will-change: transform;
+        transition: transform 10s cubic-bezier(0, 0, 0.3, 1);
+        transform: rotate(var(--rotacion));
+        z-index: 999;
+        #inner-ruleta {
+            //content: '';
+            position: absolute;
+            top: calc((var(--tamano) / 18));
+            left: calc((var(--tamano) / 18));
+            width: calc(var(--tamano) - (var(--tamano) / 9));
+            height: calc(var(--tamano) - (var(--tamano) / 9));
+            background-color: transparent;
+            border-radius: 50%;
+            //border: calc(var(--tamano) / 18) solid var(--color-borde);
+            will-change: transform;
+            z-index: 9999;
+            box-shadow: inset 0px 0px calc(var(--tamano) / 20) black;
+            overflow: hidden;
+            background-color: #fff;
+        }
+        #light-bulbs {
+            // outline: green 2px solid;
+            height: 100%;
+            width: 100%;
+            z-index: 999999;
+            position: relative;
+            &.giro {
+                div.blink_par {
+                    animation: blinker_par 1s infinite;
+                }
+                div.blink_impar {
+                    animation: blinker_impar 1s infinite;
+                }
+            }
+            &:not(.giro) div {
+                background-color: #fff;
+                @include css3-prefix(box-shadow, 0px 0px calc(var(--tamano)*0.034) calc(var(--tamano)*0.025) rgba(252, 252, 252, 0.5)) //transform: rotate(calc(var(--grados-bombillos) * var(--posicion))) translate(0, calc(-1 * var(--tamano) / 2.7)) translate(-50%, -336%);
+            }
+            div {
+                & {
+                    position: absolute;
+                    top: calc(var(--tamano) / 2);
+                    left: calc(var(--tamano) / 2);
+                    width: calc(var(--tamano) / 40);
+                    height: calc(var(--tamano) / 40);
+                    background-color: rgb(255, 255, 255);
+                    border-radius: 100%;
+                    transform-origin: 0 0;
+                }
+                @for $i from 1 through 22 {
+                    &:nth-child(#{$i}) {
+                        //     --posicion: #{$i - 1};
+                        transform: rotate(calc(var(--grados-bombillos) * (#{$i - 1}))) translate(0, calc(-1 * var(--tamano) / 2.7)) translate(-50%, -455%);
+                    }
+                }
+            }
+        }
+    }
+}
+
+#triangulo {
+    position: absolute;
+    top: calc(var(--top) + var(--tamano) / 18);
+    left: calc(var(--left) + var(--tamano) / 18);
+    width: 0;
+    height: 0;
+    border-left: calc(var(--tamano) / 15) solid transparent;
+    border-right: calc(var(--tamano) / 15) solid transparent;
+    border-bottom: calc(var(--tamano) / 5) solid var(--color-flecha);
+    transform: translate(calc(var(--tamano) / 2), calc(var(--tamano) / 2)) translate(-50%, -104.5%);
+}
+
+#triangulo:after {
+    position: absolute;
+    width: calc(var(--tamano) / 15);
+    height: calc(var(--tamano) / 15);
+    top: 100%;
+    left: 0%;
+    transform: translate(-50%, 260%);
+    content: '';
+    background-color: var(--color-centro);
+    border-radius: 50%;
+    box-shadow: 0px 0px calc(var(--tamano) / 20) black;
+}
+
+#ruleta {
+    position: absolute;
+    top: var(--top);
+    left: var(--left);
+    width: var(--tamano);
+    height: var(--tamano);
+    background-color: red;
+    border-radius: 50%;
+    will-change: transform;
+    transition: transform 10s cubic-bezier(0, 0, 0.3, 1);
+    transform: rotate(var(--rotacion));
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: var(--tamano);
+        height: var(--tamano);
+        background-color: transparent;
+        border-radius: 50%;
+        border: calc(var(--tamano) / 18) solid var(--color-borde);
+        will-change: transform;
+        z-index: 9999;
+        box-shadow: inset 0px 0px calc(var(--tamano) / 20) black;
+    }
+    &:hover {
+        --rotacion: 4000deg;
+    }
+    &:after {
+        position: absolute;
+        width: calc(var(--tamano) / 3);
+        height: calc(var(--tamano) / 3);
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        content: '';
+        background-color: var(--color-flecha);
+        border-radius: 50%;
+        box-shadow: 0px 0px calc(var(--tamano) / 20) black;
+    }
+    #caras div {
+        position: absolute;
+        top: calc(var(--tamano) / 2);
+        left: calc(var(--tamano) / 2);
+        width: calc(var(--tamano) / 6);
+        height: calc(var(--tamano) / 6);
+        background-color: blueviolet;
+        background-image: url(https://www.unicomergiraygana.com/wp-content/uploads/2022/10/premio-rs-navidad-diciembre-7.png);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 80% auto;
+        border-radius: 50%;
+        transform-origin: 0 0;
+        transform: rotate(calc(var(--grados) * var(--posicion))) translate(0, calc(-1 * var(--tamano) / 2.7)) translate(-50%, -40%);
+    }
+    #divisores div {
+        position: absolute;
+        top: calc(var(--tamano) / 2);
+        left: calc(var(--tamano) / 2);
+        width: calc(var(--tamano) / 40);
+        height: calc(var(--tamano) / 2);
+        background-color: var(--color-divisor);
+        transform-origin: 0 0;
+        transform: rotate(calc(var(--grados) / 2 + var(--grados) * var(--posicion))) translate(-50%, -100%);
+    }
+    #sectores {
+        position: absolute;
+        width: calc(var(--tamano) + 2px);
+        height: calc(var(--tamano) + 2px);
+        border-radius: 50%;
+        overflow: hidden;
+        left: -1px;
+        top: -1px;
+    }
+    #sectores div {
+        position: absolute;
+        top: 0%;
+        left: 50%;
+        width: calc(var(--tamano) / 2);
+        height: calc(var(--tamano) / 2);
+        transform-origin: 0% 100%;
+        transform: rotate( calc(-90deg + var(--grados) / 2 + var(--grados) * var(--posicion))) skew(calc((90deg - var(--grados)) * -1));
+    }
+    #sectores div {
+        &:nth-child(even)::before {
+            background-color: var(--color-par);
+        }
+        &:nth-child(even)::before {
+            background-color: var(--color-par);
+        }
+        &:nth-last-child(1)::before {
+            background-color: #fff;
+        }
+        &:nth-last-child(3)::before {
+            background-color: #fff;
+        }
+        &:nth-last-child(6)::before {
+            background-color: #fff;
+        }
+        &::before {
+            position: absolute;
+            width: inherit;
+            height: inherit;
+            border-radius: 0 100% 0 0;
+            background-color: var(--color-impar);
+            content: '';
+            transform-origin: 0% 100%;
+            transform: skew(90deg - var(--grados));
+        }
+    }
+    div:nth-child(1) {
+        --posicion: 0;
+    }
+    div:nth-child(2) {
+        --posicion: 1;
+    }
+    div:nth-child(3) {
+        --posicion: 2;
+    }
+    div:nth-child(4) {
+        --posicion: 3;
+    }
+    div:nth-child(5) {
+        --posicion: 4;
+    }
+    div:nth-child(6) {
+        --posicion: 5;
+    }
+    div:nth-child(7) {
+        --posicion: 6;
+    }
+    div:nth-child(8) {
+        --posicion: 7;
+    }
+    div:nth-child(9) {
+        --posicion: 8;
+    }
+    div:nth-child(10) {
+        --posicion: 9;
+    }
+    div:nth-child(11) {
+        --posicion: 10;
+    }
+    div:nth-child(12) {
+        --posicion: 11;
+    }
+}
+
+@keyframes blinker_par {
+    0% {
+        //opacity: 1;
+        @include css3-prefix(box-shadow, 0px 0px calc(var(--tamano)*0.034) calc(var(--tamano)*0.025) rgba(252, 252, 252, 0.5))
+    }
+    50% {
+        //opacity: 0;
+        background-color: #cc600d;
+        @include css3-prefix(box-shadow, 3px 4px 4px -1px rgba(0, 0, 0, 0.75));
+        //@include css3-prefix(box-shadow, 0px 0px calc(var(--tamano)*0.034) calc(var(--tamano)*0.025) rgba(252, 252, 252, 0))
+    }
+    100% {
+        //opacity: 1;
+        @include css3-prefix(box-shadow, 0px 0px calc(var(--tamano)*0.034) calc(var(--tamano)*0.025) rgba(252, 252, 252, 0.5))
+    }
+}
+
+@keyframes blinker_impar {
+    0% {
+        background-color: #cc600d;
+        @include css3-prefix(box-shadow, 3px 4px 4px -1px rgba(0, 0, 0, 0.75));
+        //       @include css3-prefix(box-shadow, 0px 0px calc(var(--tamano)*0.034) calc(var(--tamano)*0.025) rgba(252, 252, 252, 0))
+    }
+    50% {
+        background-color: #fff;
+        @include css3-prefix(box-shadow, 0px 0px calc(var(--tamano)*0.034) calc(var(--tamano)*0.025) rgba(252, 252, 252, 0.5))
+    }
+    100% {
+        background-color: #cc600d;
+        @include css3-prefix(box-shadow, 3px 4px 4px -1px rgba(0, 0, 0, 0.75));
+        //        @include css3-prefix(box-shadow, 0px 0px calc(var(--tamano)*0.034) calc(var(--tamano)*0.025) rgba(252, 252, 252, 0))
+    }
+}
